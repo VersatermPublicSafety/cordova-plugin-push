@@ -300,6 +300,10 @@ class PushNotification {
 
     exec(successCallback, errorCallback, 'PushNotification', 'finish', [id]);
   }
+
+  showNotification(successCallback, errorCallback, data) {
+    exec(successCallback, errorCallback, 'PushNotification', 'showNotification', [data]);
+  }
 }
 
 /*!

@@ -420,6 +420,7 @@ class PushPlugin : CordovaPlugin() {
       PushConstants.DELETE_CHANNEL -> executeActionDeleteChannel(data, callbackContext)
       PushConstants.LIST_CHANNELS -> executeActionListChannels(callbackContext)
       PushConstants.CLEAR_NOTIFICATION -> executeActionClearNotification(data, callbackContext)
+      PushConstants.SHOW_NOTIFICATION -> executeActionShowNotification(data, callbackContext)
       else -> {
         Log.e(TAG, "Execute: Invalid Action $action")
         callbackContext.sendPluginResult(PluginResult(PluginResult.Status.INVALID_ACTION))
@@ -786,6 +787,16 @@ class PushPlugin : CordovaPlugin() {
       } catch (e: JSONException) {
         callbackContext.error(e.message)
       }
+    }
+  }
+
+  private fun executeActionShowNotification(data: JSONArray, callbackContext: CallbackContext) {
+    FCMService fcm = new FCMService();
+    try {
+      fcm.showNotification(getApplicationContext(), data.getJSONObject(0));
+      callbackContext.success();
+    } catch (JSONException e) {
+      callbackContext.error(e.getMessage());
     }
   }
 

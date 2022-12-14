@@ -336,6 +336,11 @@ var PushNotification = /*#__PURE__*/function () {
 
       exec(successCallback, errorCallback, 'PushNotification', 'finish', [id]);
     }
+  }, {
+      key: 'showNotification',
+      value: function showNotification(successCallback, errorCallback, data) {
+        exec(successCallback, errorCallback, 'PushNotification', 'showNotification', [data]);
+      }
   }]);
 
   return PushNotification;

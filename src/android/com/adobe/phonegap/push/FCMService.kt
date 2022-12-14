@@ -86,6 +86,24 @@ class FCMService : FirebaseMessagingService() {
     //sendRegistrationToServer(token);
   }
 
+  /*
+  * Manually trigger a notification to be shown in the foreground.
+  */
+  public void showNotification(JSONObject notification) throws JSONException {
+      Bundle extras = new Bundle();
+
+      // Iterate over all keys in the json object
+      for (int i = 0; i < notification.names().length(); i++) {
+          String name = notification.names().getString(i);
+          // Do not add empty extras
+          if (notification.optString(name) != null && !notification.optString(name).equals("")) {
+              extras.putString(name, notification.optString(name));
+          }
+      }
+        
+      showNotificationIfPossible(extras);
+  }
+
   /**
    * Set Notification
    * If message is empty or null, the message list is cleared.
