@@ -791,12 +791,12 @@ class PushPlugin : CordovaPlugin() {
   }
 
   private fun executeActionShowNotification(data: JSONArray, callbackContext: CallbackContext) {
-    FCMService fcm = new FCMService();
+    var fcm = FCMService()
     try {
-      fcm.showNotification(getApplicationContext(), data.getJSONObject(0));
-      callbackContext.success();
-    } catch (JSONException e) {
-      callbackContext.error(e.getMessage());
+      fcm.showNotification(data.getJSONObject(0))
+      callbackContext.success()
+    } catch (e: JSONException) {
+      callbackContext.error(e.message)
     }
   }
 

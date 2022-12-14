@@ -90,16 +90,20 @@ class FCMService : FirebaseMessagingService() {
   * Manually trigger a notification to be shown in the foreground.
   */
   fun showNotification(notification: JSONObject) {
-      var extras = Bundle();
+      var extras = Bundle()
 
       // Iterate over all keys in the json object
-      for ((key, value) in notification) {
+      val keys = notification.keys()
+      while (keys.hasNext()) {
+        val key = keys.next()
+        val value = notification.optString(key)
+
         if (value != ""){
-        extras.putString(key, value)
+          extras.putString(key, value)
         }
       }
         
-      showNotificationIfPossible(extras);
+      showNotificationIfPossible(extras)
   }
 
   /**
