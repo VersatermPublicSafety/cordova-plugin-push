@@ -89,16 +89,14 @@ class FCMService : FirebaseMessagingService() {
   /*
   * Manually trigger a notification to be shown in the foreground.
   */
-  public void showNotification(JSONObject notification) throws JSONException {
-      Bundle extras = new Bundle();
+  fun showNotification(notification: JSONObject) {
+      var extras = Bundle();
 
       // Iterate over all keys in the json object
-      for (int i = 0; i < notification.names().length(); i++) {
-          String name = notification.names().getString(i);
-          // Do not add empty extras
-          if (notification.optString(name) != null && !notification.optString(name).equals("")) {
-              extras.putString(name, notification.optString(name));
-          }
+      for ((key, value) in notification) {
+        if (value != ""){
+        extras.putString(key, value)
+        }
       }
         
       showNotificationIfPossible(extras);
